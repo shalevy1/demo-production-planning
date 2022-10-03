@@ -8,7 +8,7 @@ import taipy as tp
 # Backend import of my python code | to create scenario, we need the original pipeline_cfg and scenario_cfg
 # fixed_variables_default is used as the default values for the fixed variables
 from config.config import fixed_variables_default, scenario_cfg, pipeline_cfg
-from taipy.core.config.config import Config
+from taipy import Config
 
 
 # importation of useful functions for Taipy frontend

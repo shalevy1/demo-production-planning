@@ -1,6 +1,5 @@
 import taipy as tp
-from taipy import Scope, Config
-from taipy.core import Frequency
+from taipy import Scope, Config, Frequency
 
 import json
 from algos.algos import *
