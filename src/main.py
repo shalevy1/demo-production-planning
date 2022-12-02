@@ -12,7 +12,7 @@ from taipy import Config
 
 
 # importation of useful functions for Taipy frontend
-from taipy.gui import Gui, Markdown, notify, Icon
+from taipy.gui import Gui, Markdown, notify, Icon, invoke_long_callback
 
 # Frontend import of my python code | importation of the pages : compare_scenario_md page, scenario_manager_md page, databases_md page
 # the * is used because sometimes we need the functions and/or variables
@@ -328,6 +328,15 @@ def catch_error_in_submit(state):
             "Value of initial productions is greater than the max capacities")
 
 
+def submit_heavy(scenario):
+    tp.submit(scenario)
+
+def submit_status(state, status):
+    # update all the variables that we want to update (ch_results, pie_results
+    # and metrics)
+    update_variables(state)
+
+
 def submit_scenario(state):
     """
     This function will submit the scenario that is selected. It will be used when the 'submit' button is pressed
@@ -353,12 +362,8 @@ def submit_scenario(state):
     # setting the scenario with the right parameters
     scenario.fixed_variables.write(state.fixed_variables._dict)
 
-    # running the scenario
-    tp.submit(scenario)
-
-    # update all the variables that we want to update (ch_results, pie_results
-    # and metrics)
-    update_variables(state)
+    # running the scenario in a long callback and update variables
+    invoke_long_callback(state, submit_heavy, [scenario], submit_status)
 
 
 def update_variables(state):

@@ -1,0 +1,4 @@
+src/.data
+*.pyc
+src/login/login.json
+*.csv
